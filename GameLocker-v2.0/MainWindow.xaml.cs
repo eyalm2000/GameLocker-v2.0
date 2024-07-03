@@ -31,7 +31,7 @@ namespace GameLocker
 
             // Custom title bar
             ExtendsContentIntoTitleBar = true;
-            SetTitleBar(AppTitleBar);
+            SetTitleBar(AppTitleBar); // Assuming you have a UIElement named AppTitleBar for custom title bar. If not, comment this line.
 
             // Set window size
             var windowHandle = WindowNative.GetWindowHandle(this);
@@ -41,7 +41,14 @@ namespace GameLocker
 
             // Apply Mica effect
             ApplyMicaEffect();
+
+            // Extends content into the title bar and optionally sets the title bar to null
+            Window window = App.MainWindow;
+            this.ExtendsContentIntoTitleBar = true;
+         
+            // this.SetTitleBar(null); // Uncomment this line if you want to explicitly set the title bar to null.
         }
+
 
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {

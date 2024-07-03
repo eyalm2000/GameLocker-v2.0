@@ -16,5 +16,7 @@ namespace GameLocker
         }
 
         private Window m_window;
+
+        public static Window MainWindow { get; internal set; }
     }
 }
