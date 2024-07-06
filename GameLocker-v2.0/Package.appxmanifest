@@ -9,7 +9,7 @@
 	<Identity
 	  Name="GameLocker-v2.0"
 	  Publisher="CN=eyalm"
-	  Version="2.1.0.0" />
+	  Version="2.1.2.0" />
 
 	<Properties>
 		<DisplayName>GameLocker v2.0</DisplayName>

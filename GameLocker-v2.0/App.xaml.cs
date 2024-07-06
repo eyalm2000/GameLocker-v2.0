@@ -1,4 +1,5 @@
 ﻿using Microsoft.UI.Xaml;
+using System;
 
 namespace GameLocker
 {
@@ -9,14 +10,17 @@ namespace GameLocker
             this.InitializeComponent();
         }
 
-        protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
+        protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
-            m_window = new MainWindow();
-            m_window.Activate();
+            // Create a new instance of your main window.
+            MainWindow mainWindow = new MainWindow();
+
+            // Make the window visible.
+            mainWindow.Activate();
         }
 
-        private Window m_window;
 
-        public static Window MainWindow { get; internal set; }
+
+
     }
 }

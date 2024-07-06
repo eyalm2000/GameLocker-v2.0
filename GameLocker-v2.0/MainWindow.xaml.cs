@@ -2,52 +2,40 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Diagnostics;
-using Windows.UI;
-using Microsoft.UI.Xaml.Media;
+// Explicitly specify which AppWindow to use
+using AppWindow = Microsoft.UI.Windowing.AppWindow;
+using WinRT.Interop;
 using Microsoft.UI;
 using Microsoft.UI.Windowing;
-using WinRT.Interop;
-using Microsoft.UI.Composition.SystemBackdrops;
-using System.Runtime.InteropServices;
-using Windows.System;
+using Windows.ApplicationModel;
+using Windows.UI;
 
 namespace GameLocker
 {
     public sealed partial class MainWindow : Window
     {
         private const string CorrectPassword = "animeisbad";
-        private Microsoft.UI.Composition.SystemBackdrops.MicaController m_micaController;
+        private readonly AppWindow appWindow;
 
         public MainWindow()
         {
             this.InitializeComponent();
 
-            // Enable Mica backdrop
-            if (MicaController.IsSupported())
-            {
-                Microsoft.UI.Xaml.Media.MicaBackdrop micaBackdrop = new Microsoft.UI.Xaml.Media.MicaBackdrop();
-                this.SystemBackdrop = micaBackdrop;
-            }
-
-            // Custom title bar
-            ExtendsContentIntoTitleBar = true;
-            SetTitleBar(AppTitleBar); // Assuming you have a UIElement named AppTitleBar for custom title bar. If not, comment this line.
-
             // Set window size
             var windowHandle = WindowNative.GetWindowHandle(this);
             var windowId = Win32Interop.GetWindowIdFromWindow(windowHandle);
-            var appWindow = AppWindow.GetFromWindowId(windowId);
-            appWindow.Resize(new Windows.Graphics.SizeInt32(650, 1000));
+            // Correctly access the static method
+            appWindow = AppWindow.GetFromWindowId(windowId);
+            appWindow.Resize(new Windows.Graphics.SizeInt32(500, 1000));
 
-            // Apply Mica effect
-            ApplyMicaEffect();
-
-            // Extends content into the title bar and optionally sets the title bar to null
-            Window window = App.MainWindow;
+            
             this.ExtendsContentIntoTitleBar = true;
-         
-            // this.SetTitleBar(null); // Uncomment this line if you want to explicitly set the title bar to null.
+            this.SetTitleBar(AppTitleBar);
+
+
+
         }
+
 
 
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
@@ -101,18 +89,6 @@ namespace GameLocker
             {
                 MessageText.Text = "Please select a game first";
             }
-        }
-
-        private void ApplyMicaEffect()
-        {
-            IntPtr hWnd = WinRT.Interop.WindowNative.GetWindowHandle(this);
-            WindowId windowId = Win32Interop.GetWindowIdFromWindow(hWnd);
-            AppWindow appWindow = AppWindow.GetFromWindowId(windowId);
-
-            // Apply Mica effect
-            appWindow.SetPresenter(AppWindowPresenterKind.Default);
-
-            // Additional customization here if needed
         }
     }
 }
